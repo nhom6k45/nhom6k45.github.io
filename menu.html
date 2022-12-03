@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Menu</title>
+	<link rel="icon" type="image/x-icon" href="/imgs/web.png">
+	<link rel="stylesheet" href="/css/global.css">
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+	<link rel="stylesheet" href="/css/menu/style.css">
+</head>
+<body>
+	
+	<div class="menu-wrapper">
+		
+		<div class="menu-icon-wrapper">
+			<img src="/imgs/ctu.png" alt="">
+		</div>
+		
+		<ul class="menu-item-wrapper">
+			<li id="home-item" class="menu-item">
+				
+				<a href="/index.html">
+					<i class="fa fa-house"></i>
+					Trang chủ
+				</a>
+			</li>
+				
+			<li id="member-item" class="menu-item">
+				<a href="/member.html">
+					<i class="fa fa-people-group"></i>
+					Thành viên
+				</a>
+			</li>
+			
+			<li id="product-item" class="menu-item">
+				<a href="/product.html">
+					<i class="fa fa-mug-saucer"></i>
+					Sản phẩm
+				</a>
+			</li>
+			
+			<li id="chart-item" class="menu-item">	
+				<a href="/chart.html">
+					<i class="fa fa-chart-simple"></i>
+					Thống kê
+				</a>
+			</li>
+			
+			<li id="info-item" class="menu-item">	
+				<a href="/info.html">
+					<i class="fa fa-circle-info"></i>
+					Liên hệ thành viên
+				</a>	
+			</li>
+			
+		</ul>
+		
+	</div>
+	
+	<script>
+		
+		var url = window.location.href
+		if(url.includes("index")) {
+			$("#home-item").addClass("activate-item")
+			$("#home-item").css("background-color", "var(--primary)")
+			$("#home-item a").css({"color": "#fff"})
+		}
+		else if(url.includes("member")) {
+			$("#member-item").addClass("activate-item")
+			$("#member-item").css("background-color", "var(--primary)")
+			$("#member-item a").css({"color": "#fff"})
+		}
+		else if(url.includes("product")) {
+			$("#product-item").addClass("activate-item")
+			$("#product-item").css("background-color", "var(--primary)")
+			$("#product-item a").css({"color": "#fff"})
+		}
+		else if(url.includes("chart")) {
+			$("#chart-item").addClass("activate-item")
+			$("#chart-item").css("background-color", "var(--primary)")
+			$("#chart-item a").css({"color": "#fff"})
+		}
+		else if(url.includes("info")) {
+			$("#info-item").addClass("activate-item")
+			$("#info-item").css("background-color", "var(--primary)")
+			$("#info-item a").css({"color": "#fff"})
+		}
+		else {
+			$("#home-item").addClass("activate-item")
+			$("#home-item").css("background-color", "var(--primary)")
+			$("#home-item a").css({"color": "#fff"})
+		}
+
+	</script>
+	
+</body>
+</html>

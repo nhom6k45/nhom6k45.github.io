@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Thống kê</title>
+
+	<link rel="icon" type="image/x-icon" href="/imgs/web.png">
+
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.0/chart.min.js"></script>
+	<link rel="stylesheet" href="/css/chart/style.css">
+
+</head>
+
+<body>
+
+	<div id="menu"></div>
+	<div id="content">
+		
+		<h1 class="page-title">Thống kê doanh số</h1>
+
+		<div id="canvas-container">
+			<canvas id="myChart"></canvas>
+		</div>
+		
+		<h5 class="product-count">Tổng số sản phẩm đã bán: <span>Đang tải dữ liệu</span></h5>
+
+	</div>
+
+
+	<script>
+		const labels = ['Cà Phê Đen Đá', 'Espresso Nóng', 'Americano Đá', 'Cappuccino Nóng', 'Latte Nóng', 'Caramel Macchiato Đá']
+		var chartData = {
+			labels: labels,
+			datasets: [{
+				label: 'Số lượng',
+				data: [0, 0, 0, 0, 0, 0],
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(255, 159, 64, 0.2)',
+					'rgba(255, 205, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(201, 203, 207, 0.2)'
+				],
+				borderColor: [
+					'rgb(255, 99, 132)',
+					'rgb(255, 159, 64)',
+					'rgb(255, 205, 86)',
+					'rgb(75, 192, 192)',
+					'rgb(54, 162, 235)',
+					'rgb(153, 102, 255)',
+					'rgb(201, 203, 207)'
+				],
+				borderWidth: 1
+			}]
+		};
+
+		var ctx = document.getElementById('myChart').getContext('2d');
+
+		var chart = new Chart(ctx, {
+			type: 'bar',
+			data: chartData,
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				},
+				plugins: {
+					legend: {
+						display: false
+					}
+				}
+			}
+		})
+
+		$(document).ready(function() {
+			$("#menu").load("/menu.html", function() {})
+
+			
+			var productId = 1
+			var maxProductId = 6
+			
+			var channel = 1945559
+			var readKey = "31E4A22H8IOUXQ1K"
+			var writeKey = "PXCMW1SL9QILLYD7"
+			
+			function chartUpdate() {				
+				$.get(`https://api.thingspeak.com/channels/${channel}/fields/${productId}/last.json?api_key=${readKey}`, function(data) {
+					var lastProductCount = data == -1 ? 0 : parseInt(data[`field${productId}`])
+					chartData.datasets[0].data[productId-1] = lastProductCount
+										
+					if(++productId <= maxProductId) {
+						chartUpdate()
+					}
+					else {
+						productId = 1
+						$(".product-count span").html(chartData.datasets[0].data.reduce((a, b) => a + b, 0))
+						chart.update()
+					}
+				})
+			}
+
+			chartUpdate()
+			setInterval(function() {
+				if(productId == 1) {
+					chartUpdate()
+				}
+			}, 1000)		
+
+
+		})
+	</script>
+
+
+
+
+</body>
+
+
+
+</html>

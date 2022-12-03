@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Thành viên</title>
+	<link rel="icon" type="image/x-icon" href="/imgs/web.png">
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+
+	<link rel="stylesheet" href="/css/member/style.css">
+
+</head>
+
+<body>
+
+	<div id="menu"></div>
+	<div id="content">
+
+		<div class="team-assignment">
+
+			<table class="responsive-table">
+				<caption class="page-title">Phân công thành viên</caption>
+				<thead>
+					<tr>
+						<th scope="col" class="col-name">Tên</th>
+						<th scope="col" class="col-assignment">Công việc</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr  class="luat" data-name="luat">
+						<td>Lê Minh Luật</td>
+						<td>Trang chủ</td>
+					</tr>
+					<tr class="my" data-name="my">
+						<td>Nguyễn Thị Huỳnh My</td>
+						<td>Thành viên</td>
+					</tr>
+					<tr class="hao" data-name="hao">
+						<td>Lê Anh Hào</td>
+						<td>Sản phẩm, liên hệ</td>
+					</tr>
+					<tr class="minh" data-name="minh">
+						<td>Trần Hoàng Minh</td>
+						<td>Sản phẩm, liên hệ</td>
+					</tr>
+					<tr class="thanh" data-name="thanh">
+						<td>Nguyễn Quốc Thành</td>
+						<td>Thống kê doanh số</td>
+					</tr>
+					<tr class="nam" data-name="nam">
+						<td>Hồ Nguyễn Thành Nam</td>
+						<td>Thống kê doanh số</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+		<div class="team-card">
+
+			<h1 class="page-title">Giới thiệu thành viên</h1>
+
+			<div class="item-wrapper">
+				<div class="item luat" data-name="luat">
+					<div class="info">
+						<h5 class="name">Lê Minh Luật</h5>
+						<h5 class="id">B1905784</h5>
+					</div>
+					<div class="img">
+						<!-- <img src="/imgs/minhluat.png" alt="" style="--c: #945f31;"> -->
+						<img src="/imgs/minhluat.png" alt="">
+					</div>
+				</div>
+
+				<div class="item my" data-name="my">
+					<div class="info">
+						<h5 class="name">Nguyễn Thị Huỳnh My</h5>
+						<h5 class="id">B1905790</h5>
+					</div>
+					<div class="img">
+						<img src="/imgs/huynhmy.png" alt="">
+					</div>
+				</div>
+
+				<div class="item hao" data-name="hao">
+					<div class="info">
+						<h5 class="name">Lê Anh Hào</h5>
+						<h5 class="id">B1905755</h5>
+					</div>
+					<div class="img">
+						<img src="/imgs/anhhao.png" alt="">
+					</div>
+				</div>
+				
+				<div class="item minh" data-name="minh">
+					<div class="info">
+						<h5 class="name">Trần Hoàng Minh</h5>
+						<h5 class="id">B1905788</h5>
+					</div>
+					<div class="img">
+						<img src="/imgs/hoangminh.png" alt="">
+					</div>
+				</div>
+				
+				<div class="item thanh" data-name="thanh">
+					<div class="info">
+						<h5 class="name">Nguyễn Quốc Thành</h5>
+						<h5 class="id">B1905830</h5>
+					</div>
+					<div class="img">
+						<img src="/imgs/quocthanh.png" alt="">
+					</div>
+				</div>
+				
+				<div class="item nam" data-name="nam">
+					<div class="info">
+						<h5 class="name">Hồ Nguyễn Thành Nam</h5>
+						<h5 class="id">B1905944</h5>
+					</div>
+					<div class="img">
+						<img src="/imgs/thanhnam.png" alt="">
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function() {
+			$("#menu").load("/menu.html")
+			
+			$(".item").each(function(ele) {
+				$(this).css({"filter": "grayscale(60%)"})
+			})
+
+			
+			$(".item").hover(function(ele) {
+				$(this).css({"filter": "grayscale(0%)", "--_p": "75%"})
+				$(".team-assignment ." + $(this).attr("data-name")).css({"font-weight": "bold", "color": "var(--primary)"})
+			}, function(ele) {
+				$(this).css({"filter": "grayscale(60%)", "--_p": "125%"})
+				$(".team-assignment ." + $(this).attr("data-name")).css({"font-weight": "", "color": "black"})
+			})
+			
+			$("tr").hover(function(ele) {
+				$(this).css({"font-weight": "bold", "color": "var(--primary)"})
+				$(".team-card ." + $(this).attr("data-name")).css({"filter": "grayscale(0%)", "--_p": "75%"})
+			}, function(ele) {
+				$(this).css({"font-weight": "", "color": "black"})
+				$(".team-card ." + $(this).attr("data-name")).css({"filter": "grayscale(60%)", "--_p": "125%"})
+			})
+			
+			// var $target = $('html,body'); 
+			// $target.animate({scrollTop: $target.height()}, 1000);
+		})
+		
+		
+	</script>
+
+
+</body>
+
+</html>

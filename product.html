@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sản phẩm</title>
+	
+	<link rel="icon" type="image/x-icon" href="/imgs/web.png">
+	
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet" href="/css/product/style.css">
+	
+</head>
+
+<body>
+	
+	<div id="menu"></div>
+	<div id="content">
+		
+		<h2 class="page-title">Menu</h2>
+		
+		<div class="product-wrapper">
+			
+			<div class="product" data-product-id="1">
+				<img src="https://product.hstatic.net/1000075078/product/1639377797_ca-phe-den-da_e0b2289e9c0a406b8488a7225e960a50.jpg" alt="">
+				<h4 class="product-name">Cà Phê Đen Đá</h4>
+				<h5 class="product-price">29.000 đ</h5>
+				<div class="btn btn-one">
+					<span>MUA HÀNG</span>
+				</div>
+			</div>
+			
+			<div class="product" data-product-id="2">
+				<img src="https://product.hstatic.net/1000075078/product/espressonong_612688_a9114fdf1b4b45f8b4a9f85e57cd8b4a.jpg" alt="">
+				<h4 class="product-name">Espresso Nóng</h4>
+				<h5 class="product-price">39.000 đ</h5>
+				<div class="btn btn-one">
+					<span>MUA HÀNG</span>
+				</div>
+			</div>
+			
+			<div class="product" data-product-id="3">
+				<img src="https://product.hstatic.net/1000075078/product/classic-cold-brew_791256_b3eeecab4ae043c2b53c06163006b609.jpg" alt="">
+				<h4 class="product-name">Americano Đá</h4>
+				<h5 class="product-price">39.000 đ</h5>
+				<div class="btn btn-one">
+					<span>MUA HÀNG</span>
+				</div>
+			</div>
+			
+			<div class="product" data-product-id="4">
+				<img src="https://product.hstatic.net/1000075078/product/cappuccino_621532_53bdbb9fc4224d639ffafcc128d21a42.jpg" alt="">
+				<h4 class="product-name">Cappuccino Nóng</h4>
+				<h5 class="prodct-price">49.000 đ</h5>
+				<div class="btn btn-one">
+					<span>MUA HÀNG</span>
+			    </div>
+			
+			</div>
+			
+			<div class="product" data-product-id="5">
+				<img src="https://product.hstatic.net/1000075078/product/latte_851143_96ca362661644db5a1bb6563d1dfbe11.jpg" alt="">
+				<h4 class="product-name">Latte Nóng</h4>
+				<h5 class="product-price">49.000 đ</h5>
+				<div class="btn btn-one">
+					<span>MUA HÀNG</span>
+				</div>
+			</div>
+			
+			
+			
+			<div class="product" data-product-id="6">
+				<img src="https://product.hstatic.net/1000075078/product/caramel-macchiato_143623_d55e3cbce14942d0aff49e63f3668ace.jpg" alt="">
+				<h4 class="product-name">Caramel Macchiato Đá</h4>
+				<h5 class="product-price">49.000 đ</h5>
+				<div class="btn btn-one">
+					<span>MUA HÀNG</span>
+				</div>
+			</div>
+					
+			
+		</div>
+		
+	</div>
+	
+	<div id="toast-wrapper">
+		
+		<div id="toast-success" class="toast">
+			<div class="toast-icon">
+				<i class="fa-sharp fa-solid fa-circle-check"></i>
+			</div>
+			<div class="toast-content">
+				<span class="toast-title">Thành công</span>
+				<span class="toast-message">Mua hàng thành công</span>
+			</div>
+			<div class="toast-exit">
+				<i class="fa-solid fa-x"></i>
+			</div>
+		</div>
+		
+		<div id="toast-error" class="toast">
+			<div class="toast-icon">
+				<i class="toast-icon fa-solid fa-circle-xmark"></i>
+			</div>
+			<div class="toast-content">
+				<span class="toast-title">Không thành công</span>
+				<span class="toast-message">Hai đơn hàng phải cách nhau 15s</span>
+			</div>
+			<div class="toast-exit">
+				<i class="fa-solid fa-x"></i>
+			</div>
+		</div>
+	</div>
+	
+		
+	<script>
+		$(document).ready(function() {
+			$("#menu").load("/menu.html", function() {
+				
+				var channel  = 1945559
+				var readKey  = "31E4A22H8IOUXQ1K"
+				var writeKey = "PXCMW1SL9QILLYD7"
+				
+				var allowPress = true
+								
+				$(".btn").click(function(ele) {
+					
+					
+					
+					
+					
+					if(!allowPress) {
+						return
+						
+					}
+
+					var productId = $(ele.target.parentElement).attr("data-product-id")
+										
+					$.get(`https://api.thingspeak.com/channels/${channel}/fields/${productId}/last.json?api_key=${readKey}`, function(data) {
+						
+						
+						var lastProductCount = data == -1 ? 0 : parseInt(data[`field${productId}`])
+											
+						
+						$.get(`https://api.thingspeak.com/update?api_key=${writeKey}&field${productId}=${lastProductCount + 1}`, function(data) {
+							
+							if(data == 0) {
+								showError()
+							}
+							else {
+								showSuccess()
+							}
+						})
+			
+							
+							
+					})
+					
+					
+					var showTime = 3000
+					function showSuccess() {
+						allowPress = false
+						$("#toast-success").removeClass("hide-toast")
+						$("#toast-success").addClass("show-toast")
+						setTimeout(function() {
+							allowPress = true
+							$("#toast-success").addClass("hide-toast")
+						}, showTime)
+					}
+					
+					function showError() {
+						allowPress = false
+						$("#toast-error").removeClass("hide-toast")
+						$("#toast-error").addClass("show-toast")
+						setTimeout(function() {
+							allowPress = true
+							$("#toast-error").addClass("hide-toast")
+						}, showTime)
+					}
+					
+					
+				})
+				
+				
+				$(".toast-exit").click(function(ele) {	
+					var toast = ele.target.id ? ele.target.parentElement : ele.target.parentElement.parentElement				
+					$(toast).addClass("hide-toast", function() {
+						$(toast).removeClass("show-toast")
+					})
+				})
+				
+				function scrollHandle() {
+					var scroll = window.scrollY;
+					$(".toast").attr("style", `--toast-top-spacing: ${20 + scroll}px`)
+				}
+				
+				window.addEventListener("scroll", (event) => {scrollHandle()});
+				
+				
+						
+				
+			})
+		})
+	</script>
+	
+	
+	
+	
+</body>
+
+
+
+</html>

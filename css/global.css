@@ -1,0 +1,51 @@
+:root {
+  --primary: rgba(38, 137, 13, 1);
+  --text-white: #fff;
+  --text-black: rgba(0,20,31,.9);
+  --text-light-gray: #495057;
+  --text-gray: #9aa0ac;
+  --text-dark-gray: #6e7687;
+  --border-thin: #e9ecef;
+  --border-thin-thin: rgba(0,40,100,.12);
+  --primary-padding: 6rem;
+  --phone-padding: 1.5rem;
+}
+
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+
+body {
+	width: 100vw;
+	height: 100vh;
+	background-color: #F5F7FB;
+	font-family: 'Quicksand', sans-serif;
+	font-size: 1.6rem;
+	line-height: 1.5;
+	text-rendering: optimizeSpeed;
+	direction: ltr;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: none;
+	font-feature-settings: "liga" 0;
+	
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.page-title {
+	margin-bottom: .5em;
+	font-size: 2rem;
+	font-weight: bold;
+	text-align: center;
+	color: var(--primary);
+	text-transform: uppercase;
+}

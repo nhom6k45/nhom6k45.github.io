@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Trang chủ</title>
+	
+	<link rel="icon" type="image/x-icon" href="/imgs/web.png">
+	
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet" href="/css/home/style.css">
+	
+</head>
+
+<body>
+	
+	<div id="menu"></div>
+	<div id="content">
+		
+		<h1 class="page-title">Web bán Cafe online</h1>
+		
+		<div class="frame-wrapper">
+			<div class="image-wrapper">
+				<img src="/imgs/1px.png" alt="">
+				<img src="/imgs/1px.png" alt="">
+				<img src="/imgs/1px.png" alt="">
+			</div>
+			
+			<div class="text-wrapper">
+				<ol>
+					<li>
+						<h4>Nội dung bài tập</h4>
+						<ul>
+							<li>Giới thiệu mục tiêu, nội dung bài tập</li>
+							<li>Thành viên, phân công công việc</li>
+							<li>Danh lục sản phẩm</li>
+							<li>Thống kê doanh số</li>
+							<li>Thông tin thêm</li>
+						</ul>
+					</li>
+					<li>
+						<h4>Mục tiêu bài tập</h4>
+						<ul>
+							<li>Biết được cách viết trang wed</li>
+							<li>Thống kê được số lượng bán ra hằng ngày</li>
+							<li>Lập được biểu đồ cột để thống kê</li>
+						</ul>
+					</li>
+				</ol>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	<script>
+		
+		var imgUrls = ["/imgs/coffe-1.jpg", "/imgs/coffe-2.jpg", "/imgs/coffe-3.jpg"]
+		function slideSlow() {
+			
+			var imgs = document.querySelectorAll(".image-wrapper img");
+			
+			imgs.forEach(function(img) {
+				$(img).addClass("img-animation")
+			})
+			
+			setTimeout(function() {
+				
+				var firstImg = imgUrls[0]
+				imgUrls[0] = imgUrls[1]
+				imgUrls[1] = imgUrls[2]
+				imgUrls[2] = firstImg
+				
+				imgs.forEach(function(img, idx) {
+					$(img).removeClass("img-animation")
+					
+					
+					if(idx == 2) {
+						
+						img.setAttribute("src", imgUrls[idx])
+						
+						$(img).addClass("img-animation-last", function() {
+							
+							
+						})		
+						setTimeout(function() {$(img).removeClass("img-animation-last")}, 500)
+						
+						
+					}
+					else {
+						img.setAttribute("src", imgUrls[idx])
+					}
+				})
+				
+				
+			}, 800)
+		}
+		slideSlow()
+		setInterval(slideSlow, 2500)
+		
+	</script>
+	
+	<script>
+		$(document).ready( function() {
+			$("#menu").load("/menu.html", function() {
+			})
+		})
+	</script>
+	
+	
+	
+	
+</body>
+
+
+
+</html>

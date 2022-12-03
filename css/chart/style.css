@@ -1,0 +1,17 @@
+#content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+#content #canvas-container {
+  width: 65%;
+}
+@media (max-width: 900px) {
+  #content #canvas-container {
+    width: 90%;
+  }
+}
